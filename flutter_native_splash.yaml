@@ -1,0 +1,10 @@
+flutter_native_splash:
+  color: "#F4F7FF"
+  image: assets/splash/splash.png
+  branding: assets/splash/pranding.png
+  branding_bottom_padding: 24
+
+  android_12:
+    color: "#F4F7FF"
+    image: assets/splash/splash_android12.png
+    branding: assets/splash/pranding.png
