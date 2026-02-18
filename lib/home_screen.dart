@@ -17,7 +17,7 @@ class _HomrScreenState extends State<HomrScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: tabs[currentIndex],
+      body: SafeArea(child: tabs[currentIndex]),
       bottomNavigationBar: BottomNavigationBar(
         onTap: (inedx) {
           currentIndex = inedx;
