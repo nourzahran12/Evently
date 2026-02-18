@@ -1,6 +1,5 @@
 import 'package:evently/models/category_model.dart';
 import 'package:evently/tabs/home/tab_itme.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class HomeHeader extends StatelessWidget {
