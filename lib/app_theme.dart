@@ -10,6 +10,7 @@ class AppTheme {
   static const Color grey = Color(0xFF686868);
 
   static ThemeData lightTheme = ThemeData(
+    primaryColor: primaryLight,
     scaffoldBackgroundColor: backgroundLight,
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: white,
@@ -22,6 +23,23 @@ class AppTheme {
       backgroundColor: primaryLight,
       foregroundColor: white,
       shape: CircleBorder(),
+    ),
+    textTheme: TextTheme(
+      titleLarge: TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.w500,
+        color: black,
+      ),
+      titleMedium: TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+        color: black,
+      ),
+      titleSmall: TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+        color: grey,
+      ),
     ),
   );
 

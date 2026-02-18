@@ -1,7 +1,7 @@
 import 'package:evently/nav_bar_icon.dart';
-import 'package:evently/tabs/favorite_tab/favorite_tab.dart';
-import 'package:evently/tabs/home_tab/home_tab.dart';
-import 'package:evently/tabs/profile_tab/profile_tab.dart';
+import 'package:evently/tabs/favorite/favorite_tab.dart';
+import 'package:evently/tabs/home/home_tab.dart';
+import 'package:evently/tabs/profile/profile_tab.dart';
 import 'package:flutter/material.dart';
 
 class HomrScreen extends StatefulWidget {
