@@ -8,11 +8,23 @@ class AppTheme {
   static const Color white = Color(0xFFFFFFFF);
   static const Color offWhite = Color(0xFFF0F0F0);
   static const Color black = Color(0xFF1C1C1C);
+  static const Color lightGrey = Color(0xFFE9EAEB);
   static const Color grey = Color(0xFF686868);
 
   static ThemeData lightTheme = ThemeData(
     primaryColor: primaryLight,
     scaffoldBackgroundColor: backgroundLight,
+    listTileTheme: ListTileThemeData(
+      tileColor: AppTheme.white,
+      shape: BeveledRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      minTileHeight: 0,
+      contentPadding: EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+      titleTextStyle: TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+        color: black,
+      ),
+    ),
     inputDecorationTheme: InputDecorationThemeData(
       fillColor: white,
       filled: true,
