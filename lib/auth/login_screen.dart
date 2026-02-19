@@ -1,18 +1,17 @@
 import 'package:evently/Widgets/default_elevated_button.dart';
 import 'package:evently/Widgets/default_text_form_field.dart';
-import 'package:evently/auth/login_screen.dart';
+import 'package:evently/auth/register_screen.dart';
 import 'package:evently/home_screen.dart';
 import 'package:flutter/material.dart';
 
-class RegisterScreen extends StatefulWidget {
-  static const String routName = '/RegisterScreen';
+class LoginScreen extends StatefulWidget {
+  static const String routName = '/LoginScreen';
 
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
-  TextEditingController nameController = TextEditingController();
+class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -30,20 +29,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
               SizedBox(height: 24),
               Center(child: Image.asset('assets/images/logo.png', height: 27)),
               SizedBox(height: screenHeight * 0.05),
-              Text('Create your account', style: textTheme.headlineSmall),
+              Text('Login to your account', style: textTheme.headlineSmall),
               SizedBox(height: 24),
-              DefaultTextFormField(
-                hintText: 'Enter your name',
-                prefixIconImageName: 'name',
-                controller: nameController,
-                validator: (value) {
-                  if (value == null || value.length < 2) {
-                    return 'Invalid name';
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(height: 16),
               DefaultTextFormField(
                 hintText: 'Enter your email',
                 prefixIconImageName: 'email',
@@ -69,18 +56,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 isPassword: true,
               ),
               SizedBox(height: screenHeight * 0.04),
-              DefaultElevatedButton(label: 'Register', onPressed: register),
+              DefaultElevatedButton(label: 'Login', onPressed: login),
               Row(
                 mainAxisAlignment: .center,
                 children: [
-                  Text('Already have an account?', style: textTheme.titleSmall),
+                  Text('Don’t have an account ?', style: textTheme.titleSmall),
                   TextButton(
                     onPressed: () {
                       Navigator.of(
                         context,
-                      ).pushReplacementNamed(LoginScreen.routName);
+                      ).pushReplacementNamed(RegisterScreen.routName);
                     },
-                    child: Text('Login'),
+                    child: Text('Register'),
                   ),
                 ],
               ),
@@ -91,7 +78,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  void register() {
+  void login() {
     Navigator.of(context).pushReplacementNamed(HomrScreen.routName);
   }
 }
