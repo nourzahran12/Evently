@@ -9,7 +9,8 @@ class AppTheme {
   static const Color offWhite = Color(0xFFF0F0F0);
   static const Color black = Color(0xFF1C1C1C);
   static const Color lightGrey = Color(0xFFE9EAEB);
-  static const Color grey = Color(0xFF686868);
+  static const Color darkGrey = Color(0xFF686868);
+  static const Color grey = Color(0xFFB9B9B9);
 
   static ThemeData lightTheme = ThemeData(
     primaryColor: primaryLight,
@@ -50,7 +51,30 @@ class AppTheme {
       foregroundColor: white,
       shape: CircleBorder(),
     ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: primaryLight,
+        foregroundColor: white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        textStyle: TextStyle(fontSize: 20, fontWeight: .w500),
+      ),
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        foregroundColor: primaryLight,
+        textStyle: TextStyle(
+          fontSize: 14,
+          fontWeight: .w600,
+          decoration: .underline,
+        ),
+      ),
+    ),
     textTheme: TextTheme(
+      headlineSmall: TextStyle(
+        fontSize: 24,
+        fontWeight: FontWeight.w600,
+        color: primaryLight,
+      ),
       titleLarge: TextStyle(
         fontSize: 20,
         fontWeight: FontWeight.w500,
