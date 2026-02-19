@@ -4,14 +4,14 @@ import 'package:evently/tabs/home/home_tab.dart';
 import 'package:evently/tabs/profile/profile_tab.dart';
 import 'package:flutter/material.dart';
 
-class HomrScreen extends StatefulWidget {
+class HomeScreen extends StatefulWidget {
   static const String routName = '/HomeScreen';
 
   @override
-  State<HomrScreen> createState() => _HomrScreenState();
+  State<HomeScreen> createState() => _HomrScreenState();
 }
 
-class _HomrScreenState extends State<HomrScreen> {
+class _HomrScreenState extends State<HomeScreen> {
   int currentIndex = 0;
   List<Widget> tabs = [HomeTab(), FavoriteTab(), ProfileTab()];
   @override

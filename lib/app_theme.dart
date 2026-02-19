@@ -11,6 +11,7 @@ class AppTheme {
   static const Color lightGrey = Color(0xFFE9EAEB);
   static const Color darkGrey = Color(0xFF686868);
   static const Color grey = Color(0xFFB9B9B9);
+  static const Color red = Color(0xFFFF3232);
 
   static ThemeData lightTheme = ThemeData(
     primaryColor: primaryLight,
@@ -37,6 +38,14 @@ class AppTheme {
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(16),
         borderSide: BorderSide(color: offWhite),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16),
+        borderSide: BorderSide(color: red),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16),
+        borderSide: BorderSide(color: red),
       ),
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(

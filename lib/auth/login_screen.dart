@@ -14,64 +14,74 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
     double screenHeight = MediaQuery.sizeOf(context).height;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            crossAxisAlignment: .start,
-            children: [
-              SizedBox(height: 24),
-              Center(child: Image.asset('assets/images/logo.png', height: 27)),
-              SizedBox(height: screenHeight * 0.05),
-              Text('Login to your account', style: textTheme.headlineSmall),
-              SizedBox(height: 24),
-              DefaultTextFormField(
-                hintText: 'Enter your email',
-                prefixIconImageName: 'email',
-                controller: emailController,
-                validator: (value) {
-                  if (value == null || value.length < 5) {
-                    return 'Invalid email';
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(height: 16),
-              DefaultTextFormField(
-                hintText: 'Enter your password',
-                prefixIconImageName: 'password',
-                controller: passwordController,
-                validator: (value) {
-                  if (value == null || value.length < 8) {
-                    return 'Invalid password';
-                  }
-                  return null;
-                },
-                isPassword: true,
-              ),
-              SizedBox(height: screenHeight * 0.04),
-              DefaultElevatedButton(label: 'Login', onPressed: login),
-              Row(
-                mainAxisAlignment: .center,
-                children: [
-                  Text('Don’t have an account ?', style: textTheme.titleSmall),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(
-                        context,
-                      ).pushReplacementNamed(RegisterScreen.routName);
-                    },
-                    child: Text('Register'),
-                  ),
-                ],
-              ),
-            ],
+          child: Form(
+            key: formkey,
+            child: Column(
+              crossAxisAlignment: .start,
+              children: [
+                SizedBox(height: 24),
+                Center(
+                  child: Image.asset('assets/images/logo.png', height: 27),
+                ),
+                SizedBox(height: screenHeight * 0.05),
+                Text('Login to your account', style: textTheme.headlineSmall),
+                SizedBox(height: 24),
+                DefaultTextFormField(
+                  hintText: 'Enter your email',
+                  prefixIconImageName: 'email',
+                  controller: emailController,
+                  validator: (value) {
+                    if (value == null || value.length < 5) {
+                      return 'Invalid email';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: 16),
+                DefaultTextFormField(
+                  hintText: 'Enter your password',
+                  prefixIconImageName: 'password',
+                  controller: passwordController,
+                  validator: (value) {
+                    if (value == null || value.length < 8) {
+                      return 'Invalid password';
+                    }
+                    return null;
+                  },
+                  isPassword: true,
+                ),
+                SizedBox(height: screenHeight * 0.04),
+                DefaultElevatedButton(label: 'Login', onPressed: login),
+                Row(
+                  mainAxisAlignment: .center,
+                  children: [
+                    Text(
+                      'Don’t have an account ?',
+                      style: textTheme.titleSmall,
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(
+                          context,
+                        ).pushReplacementNamed(RegisterScreen.routName);
+                      },
+                      child: Text('Register'),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -79,6 +89,8 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void login() {
-    Navigator.of(context).pushReplacementNamed(HomrScreen.routName);
+    if (formkey.currentState!.validate()) {
+      Navigator.of(context).pushReplacementNamed(HomeScreen.routName);
+    }
   }
 }

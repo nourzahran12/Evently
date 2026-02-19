@@ -14,7 +14,7 @@ class EventlyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        HomrScreen.routName: (_) => HomrScreen(),
+        HomeScreen.routName: (_) => HomeScreen(),
         RegisterScreen.routName: (_) => RegisterScreen(),
         LoginScreen.routName: (_) => LoginScreen(),
       },
