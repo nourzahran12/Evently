@@ -1,3 +1,4 @@
+import 'package:evently/create_event_screen.dart';
 import 'package:evently/nav_bar_icon.dart';
 import 'package:evently/tabs/favorite/favorite_tab.dart';
 import 'package:evently/tabs/home/home_tab.dart';
@@ -19,8 +20,9 @@ class _HomrScreenState extends State<HomeScreen> {
     return Scaffold(
       body: SafeArea(child: tabs[currentIndex]),
       bottomNavigationBar: BottomNavigationBar(
-        onTap: (inedx) {
-          currentIndex = inedx;
+        onTap: (index) {
+          if (currentIndex == index) return;
+          currentIndex = index;
           setState(() {});
         },
         currentIndex: currentIndex,
@@ -43,7 +45,8 @@ class _HomrScreenState extends State<HomeScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () =>
+            Navigator.of(context).pushNamed(CreateEventScreen.routName),
         child: Icon(Icons.add, size: 28),
       ),
     );
