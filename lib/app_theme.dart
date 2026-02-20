@@ -16,6 +16,11 @@ class AppTheme {
   static ThemeData lightTheme = ThemeData(
     primaryColor: primaryLight,
     scaffoldBackgroundColor: backgroundLight,
+    appBarTheme: AppBarThemeData(
+      backgroundColor: backgroundLight,
+      centerTitle: true,
+      titleTextStyle: TextStyle(fontSize: 18, color: black, fontWeight: .w500),
+    ),
     listTileTheme: ListTileThemeData(
       tileColor: AppTheme.white,
       shape: BeveledRectangleBorder(borderRadius: BorderRadius.circular(16)),

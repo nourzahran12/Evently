@@ -10,6 +10,7 @@ class DefaultTextFormField extends StatefulWidget {
   String? prefixIconImageName;
   String? suffixIconImageName;
   bool isPassword;
+  int maxLines;
 
   DefaultTextFormField({
     required this.hintText,
@@ -19,6 +20,7 @@ class DefaultTextFormField extends StatefulWidget {
     this.prefixIconImageName,
     this.suffixIconImageName,
     this.isPassword = false,
+    this.maxLines = 1,
   });
 
   @override
@@ -40,7 +42,7 @@ class _DefaultTextFormFieldState extends State<DefaultTextFormField> {
                   'assets/icons/${widget.prefixIconImageName}.svg',
                 ),
               ),
-        suffixIcon: widget.suffixIconImageName == null && widget.isPassword
+        suffixIcon: widget.isPassword
             ? IconButton(
                 onPressed: () {
                   isObscure = !isObscure;
@@ -53,12 +55,14 @@ class _DefaultTextFormFieldState extends State<DefaultTextFormField> {
                   color: AppTheme.grey,
                 ),
               )
-            : Padding(
+            : widget.suffixIconImageName != null
+            ? Padding(
                 padding: EdgeInsets.all(12),
                 child: SvgPicture.asset(
                   'assets/icons/${widget.suffixIconImageName}.svg',
                 ),
-              ),
+              )
+            : null,
       ),
       controller: widget.controller,
       onChanged: widget.onChanged,
@@ -66,6 +70,7 @@ class _DefaultTextFormFieldState extends State<DefaultTextFormField> {
       obscureText: isObscure,
       autovalidateMode: .onUserInteraction,
       onTapOutside: (_) => FocusManager.instance.primaryFocus?.unfocus(),
+      maxLines: widget.maxLines,
     );
   }
 }
