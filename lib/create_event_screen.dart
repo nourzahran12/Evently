@@ -2,6 +2,7 @@ import 'package:evently/Widgets/arrow_back.dart';
 import 'package:evently/Widgets/default_elevated_button.dart';
 import 'package:evently/Widgets/default_text_form_field.dart';
 import 'package:evently/models/category_model.dart';
+import 'package:evently/models/event_model.dart';
 import 'package:evently/tabs/home/tab_itme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -185,6 +186,22 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
   }
 
   void createEvent() {
-    if (formkey.currentState!.validate()) {}
+    if (formkey.currentState!.validate() &&
+        selectedTime != null &&
+        selectedDate != null) {
+      DateTime dateTime = DateTime(
+        selectedDate!.year,
+        selectedDate!.month,
+        selectedDate!.day,
+        selectedTime!.hour,
+        selectedTime!.minute,
+      );
+      EventModel event = EventModel(
+        category: selectedCategory,
+        title: titleController.text,
+        description: descriptionController.text,
+        dateTime: dateTime,
+      );
+    }
   }
 }
