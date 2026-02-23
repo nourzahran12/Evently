@@ -51,7 +51,7 @@ class _HomeHeaderState extends State<HomeHeader> {
                 if (currentIndex == index) return;
                 currentIndex = index;
                 CategoryModel selectedCategory =
-                    CategoryModel.categorise[index - 1];
+                    CategoryModel.categorise[index];
                 setState(() {});
               },
             ),
