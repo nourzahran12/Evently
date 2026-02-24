@@ -1,9 +1,11 @@
 import 'package:evently/Widgets/default_elevated_button.dart';
 import 'package:evently/Widgets/default_text_form_field.dart';
+import 'package:evently/Widgets/ui_utils.dart';
 import 'package:evently/auth/register_screen.dart';
 import 'package:evently/firebase_service.dart';
 import 'package:evently/home_screen.dart';
 import 'package:evently/providers/user_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -102,7 +104,13 @@ class _LoginScreenState extends State<LoginScreen> {
           listen: false,
         ).updateCurrentUser(user);
         Navigator.of(context).pushReplacementNamed(HomeScreen.routName);
-      });
+      }).catchError((error) {
+            String? errorMessage;
+            if (error is FirebaseAuthException) {
+              errorMessage = error.message;
+            }
+            UiUtils.showErrorMessage(errorMessage);
+          });;
     }
   }
 }
