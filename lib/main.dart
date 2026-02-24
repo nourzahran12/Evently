@@ -3,6 +3,7 @@ import 'package:evently/auth/login_screen.dart';
 import 'package:evently/auth/register_screen.dart';
 import 'package:evently/create_event_screen.dart';
 import 'package:evently/home_screen.dart';
+import 'package:evently/providers/events_provider.dart';
 import 'package:evently/providers/user_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +12,15 @@ import 'package:provider/provider.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(ChangeNotifierProvider(create: (_) => UserProvider(),
-  child: EventlyApp()));
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => UserProvider()),
+        ChangeNotifierProvider(create: (_) => EventsProvider()..getEvents()),
+      ],
+      child: EventlyApp(),
+    ),
+  );
 }
 
 class EventlyApp extends StatelessWidget {
@@ -26,7 +34,7 @@ class EventlyApp extends StatelessWidget {
         LoginScreen.routName: (_) => LoginScreen(),
         CreateEventScreen.routName: (_) => CreateEventScreen(),
       },
-      initialRoute: RegisterScreen.routName,
+      initialRoute: LoginScreen.routName,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: .light,
