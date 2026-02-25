@@ -3,11 +3,13 @@ import 'package:evently/auth/login_screen.dart';
 import 'package:evently/auth/register_screen.dart';
 import 'package:evently/create_event_screen.dart';
 import 'package:evently/home_screen.dart';
+import 'package:evently/l10n/app_localizations.dart';
 import 'package:evently/providers/events_provider.dart';
 import 'package:evently/providers/settings_provider.dart';
 import 'package:evently/providers/user_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
@@ -41,6 +43,11 @@ class EventlyApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: settingsProvider.themeMode,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      locale: settingsProvider.languageCode == null
+          ? null
+          : Locale(settingsProvider.languageCode!),
     );
   }
 }
