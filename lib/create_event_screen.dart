@@ -5,12 +5,14 @@ import 'package:evently/Widgets/ui_utils.dart';
 import 'package:evently/firebase_service.dart';
 import 'package:evently/models/category_model.dart';
 import 'package:evently/models/event_model.dart';
+import 'package:evently/providers/settings_provider.dart';
 import 'package:evently/tabs/home/tab_itme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class CreateEventScreen extends StatefulWidget {
   static const String routName = '/CreateEventScreen';
@@ -32,6 +34,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
+    SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
     return Scaffold(
       appBar: AppBar(leading: ArrowBack(), title: Text('Add event')),
       body: SingleChildScrollView(
@@ -43,7 +46,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(16),
                 child: Image.asset(
-                  'assets/images/${selectedCategory.imageName}.png',
+                  'assets/images/${settingsProvider.isDark ? selectedCategory.imageName + '_dark' : selectedCategory.imageName}.png',
                   height: MediaQuery.sizeOf(context).height * 0.23,
                   width: double.infinity,
                   fit: .fill,

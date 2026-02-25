@@ -5,6 +5,8 @@ class AppTheme {
   static const Color primaryDark = Color(0xFF457AED);
   static const Color backgroundLight = Color(0xFFF4F7FF);
   static const Color backgroundDark = Color(0xFF000F30);
+  static const Color borderDark = Color(0xFF002D8F);
+  static const Color navy = Color(0xFF001440);
   static const Color white = Color(0xFFFFFFFF);
   static const Color offWhite = Color(0xFFF0F0F0);
   static const Color black = Color(0xFF1C1C1C);
@@ -108,5 +110,105 @@ class AppTheme {
     ),
   );
 
-  static ThemeData darkTheme = ThemeData();
+  static ThemeData darkTheme = ThemeData(
+    primaryColor: primaryDark,
+    scaffoldBackgroundColor: backgroundDark,
+    appBarTheme: AppBarThemeData(
+      backgroundColor: backgroundDark,
+      centerTitle: true,
+      titleTextStyle: TextStyle(fontSize: 18, color: white, fontWeight: .w500),
+    ),
+    listTileTheme: ListTileThemeData(
+      tileColor: navy,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+        side: BorderSide(color: borderDark),
+      ),
+      minTileHeight: 0,
+      contentPadding: EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+      titleTextStyle: TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+        color: white,
+      ),
+    ),
+    inputDecorationTheme: InputDecorationThemeData(
+      fillColor: navy,
+      filled: true,
+      hintStyle: TextStyle(fontSize: 14, fontWeight: .w400, color: darkGrey),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16),
+        borderSide: BorderSide(color: borderDark),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16),
+        borderSide: BorderSide(color: borderDark),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16),
+        borderSide: BorderSide(color: red),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16),
+        borderSide: BorderSide(color: red),
+      ),
+    ),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: backgroundDark,
+      selectedItemColor: primaryDark,
+      unselectedItemColor: grey,
+      showSelectedLabels: false,
+      showUnselectedLabels: false,
+    ),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      elevation: 0,
+      focusElevation: 0,
+      hoverElevation: 0,
+      highlightElevation: 0,
+      backgroundColor: primaryDark,
+      foregroundColor: white,
+
+      shape: CircleBorder(),
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: primaryDark,
+        foregroundColor: white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        textStyle: TextStyle(fontSize: 20, fontWeight: .w500),
+      ),
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        foregroundColor: primaryDark,
+        textStyle: TextStyle(
+          fontSize: 14,
+          fontWeight: .w600,
+          decoration: .underline,
+        ),
+      ),
+    ),
+    textTheme: TextTheme(
+      headlineSmall: TextStyle(
+        fontSize: 24,
+        fontWeight: FontWeight.w600,
+        color: white,
+      ),
+      titleLarge: TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.w500,
+        color: white,
+      ),
+      titleMedium: TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+        color: white,
+      ),
+      titleSmall: TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+        color: grey,
+      ),
+    ),
+  );
 }

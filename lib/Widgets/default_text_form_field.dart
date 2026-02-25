@@ -71,6 +71,7 @@ class _DefaultTextFormFieldState extends State<DefaultTextFormField> {
       autovalidateMode: .onUserInteraction,
       onTapOutside: (_) => FocusManager.instance.primaryFocus?.unfocus(),
       maxLines: widget.maxLines,
+      style: Theme.of(context).textTheme.titleMedium,
     );
   }
 }
