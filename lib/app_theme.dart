@@ -94,7 +94,7 @@ class AppTheme {
       ),
       titleLarge: TextStyle(
         fontSize: 20,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w600,
         color: black,
       ),
       titleMedium: TextStyle(
@@ -196,7 +196,7 @@ class AppTheme {
       ),
       titleLarge: TextStyle(
         fontSize: 20,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w600,
         color: white,
       ),
       titleMedium: TextStyle(

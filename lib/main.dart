@@ -4,6 +4,8 @@ import 'package:evently/auth/register_screen.dart';
 import 'package:evently/create_event_screen.dart';
 import 'package:evently/home_screen.dart';
 import 'package:evently/l10n/app_localizations.dart';
+import 'package:evently/onboarding_screen.dart';
+import 'package:evently/onboarding_setup_screen.dart';
 import 'package:evently/providers/events_provider.dart';
 import 'package:evently/providers/settings_provider.dart';
 import 'package:evently/providers/user_provider.dart';
@@ -38,8 +40,10 @@ class EventlyApp extends StatelessWidget {
         RegisterScreen.routName: (_) => RegisterScreen(),
         LoginScreen.routName: (_) => LoginScreen(),
         CreateEventScreen.routName: (_) => CreateEventScreen(),
+        OnboardingSetupScreen.routName: (_) => OnboardingSetupScreen(),
+        OnboardingScreen.routName: (_) => OnboardingScreen(),
       },
-      initialRoute: LoginScreen.routName,
+      initialRoute: OnboardingSetupScreen.routName,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: settingsProvider.themeMode,
