@@ -11,12 +11,14 @@ import 'package:evently/providers/settings_provider.dart';
 import 'package:evently/providers/user_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  final prefs = await SharedPreferences.getInstance();
+  bool isOnboardingSeen = prefs.getBool('onboarding_seen') ?? false;
   runApp(
     MultiProvider(
       providers: [
@@ -24,12 +26,14 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (_) => EventsProvider()..getEvents()),
         ChangeNotifierProvider(create: (_) => SettingsProvider()),
       ],
-      child: EventlyApp(),
+      child: EventlyApp(isOnboardingSeen: isOnboardingSeen),
     ),
   );
 }
 
 class EventlyApp extends StatelessWidget {
+  bool isOnboardingSeen;
+  EventlyApp({required this.isOnboardingSeen});
   @override
   Widget build(BuildContext context) {
     SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
@@ -43,7 +47,9 @@ class EventlyApp extends StatelessWidget {
         OnboardingSetupScreen.routName: (_) => OnboardingSetupScreen(),
         OnboardingScreen.routName: (_) => OnboardingScreen(),
       },
-      initialRoute: OnboardingSetupScreen.routName,
+      initialRoute: isOnboardingSeen
+          ? LoginScreen.routName
+          : OnboardingSetupScreen.routName,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: settingsProvider.themeMode,

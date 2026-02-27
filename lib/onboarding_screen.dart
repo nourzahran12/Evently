@@ -7,6 +7,7 @@ import 'package:evently/auth/login_screen.dart';
 import 'package:evently/providers/settings_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OnboardingScreen extends StatefulWidget {
   static const String routName = '/OnboardingScreen';
@@ -103,12 +104,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               Spacer(),
               DefaultElevatedButton(
                 label: index == 2 ? 'Get started' : 'Next',
-                onPressed: () {
-                  index == 2
-                      ? Navigator.of(
-                          context,
-                        ).pushReplacementNamed(LoginScreen.routName)
-                      : index++;
+                onPressed: () async {
+                  index++;
+                  if (index == 2) {
+                    final prefs = await SharedPreferences.getInstance();
+                    await prefs.setBool('onboarding_seen', true);
+                    Navigator.of(
+                      context,
+                    ).pushReplacementNamed(LoginScreen.routName);
+                  }
                   setState(() {});
                 },
               ),
