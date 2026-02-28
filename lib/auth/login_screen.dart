@@ -1,12 +1,14 @@
 import 'package:evently/Widgets/default_elevated_button.dart';
 import 'package:evently/Widgets/default_text_form_field.dart';
 import 'package:evently/Widgets/ui_utils.dart';
+import 'package:evently/app_theme.dart';
 import 'package:evently/auth/register_screen.dart';
 import 'package:evently/firebase_service.dart';
 import 'package:evently/home_screen.dart';
 import 'package:evently/providers/user_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -66,8 +68,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                   isPassword: true,
                 ),
-                SizedBox(height: screenHeight * 0.04),
+                SizedBox(height: screenHeight * 0.06),
                 DefaultElevatedButton(label: 'Login', onPressed: login),
+                SizedBox(height: screenHeight * 0.04),
                 Row(
                   mainAxisAlignment: .center,
                   children: [
@@ -85,6 +88,28 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
+                SizedBox(height: screenHeight * 0.04),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Row(
+                    mainAxisAlignment: .center,
+                    children: [
+                      SvgPicture.asset(
+                        'assets/icons/google.svg',
+                        width: 24,
+                        height: 24,
+                      ),
+                      SizedBox(width: 16),
+                      Text('Login with Google'),
+                    ],
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    textStyle: textTheme.titleLarge,
+                    backgroundColor: AppTheme.white,
+                    foregroundColor: AppTheme.primaryLight,
+                    fixedSize: Size(MediaQuery.sizeOf(context).width, 48),
+                  ),
+                ),
               ],
             ),
           ),
@@ -96,21 +121,23 @@ class _LoginScreenState extends State<LoginScreen> {
   void login() {
     if (formkey.currentState!.validate()) {
       FirebaseService.login(
-        email: emailController.text,
-        password: passwordController.text,
-      ).then((user) {
-        Provider.of<UserProvider>(
-          context,
-          listen: false,
-        ).updateCurrentUser(user);
-        Navigator.of(context).pushReplacementNamed(HomeScreen.routName);
-      }).catchError((error) {
+            email: emailController.text,
+            password: passwordController.text,
+          )
+          .then((user) {
+            Provider.of<UserProvider>(
+              context,
+              listen: false,
+            ).updateCurrentUser(user);
+            Navigator.of(context).pushReplacementNamed(HomeScreen.routName);
+          })
+          .catchError((error) {
             String? errorMessage;
             if (error is FirebaseAuthException) {
               errorMessage = error.message;
             }
             UiUtils.showErrorMessage(errorMessage);
-          });;
+          });
     }
   }
 }

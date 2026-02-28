@@ -3,12 +3,14 @@ import 'dart:math';
 import 'package:evently/Widgets/default_elevated_button.dart';
 import 'package:evently/Widgets/default_text_form_field.dart';
 import 'package:evently/Widgets/ui_utils.dart';
+import 'package:evently/app_theme.dart';
 import 'package:evently/auth/login_screen.dart';
 import 'package:evently/firebase_service.dart';
 import 'package:evently/home_screen.dart';
 import 'package:evently/providers/user_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -80,8 +82,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   },
                   isPassword: true,
                 ),
-                SizedBox(height: screenHeight * 0.04),
+                SizedBox(height: screenHeight * 0.06),
                 DefaultElevatedButton(label: 'Register', onPressed: register),
+                SizedBox(height: screenHeight * 0.04),
                 Row(
                   mainAxisAlignment: .center,
                   children: [
@@ -98,6 +101,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       child: Text('Login'),
                     ),
                   ],
+                ),
+                SizedBox(height: screenHeight * 0.04),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Row(
+                    mainAxisAlignment: .center,
+                    children: [
+                      SvgPicture.asset(
+                        'assets/icons/google.svg',
+                        width: 24,
+                        height: 24,
+                      ),
+                      SizedBox(width: 16),
+                      Text('Sign up with Google'),
+                    ],
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    textStyle: textTheme.titleLarge,
+                    backgroundColor: AppTheme.white,
+                    foregroundColor: AppTheme.primaryLight,
+                    fixedSize: Size(MediaQuery.sizeOf(context).width, 48),
+                  ),
                 ),
               ],
             ),
