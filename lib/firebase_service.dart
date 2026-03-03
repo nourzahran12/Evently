@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:evently/models/event_model.dart';
 import 'package:evently/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseService {
   static CollectionReference<EventModel> getEventsCollection() =>
@@ -69,6 +70,50 @@ class FirebaseService {
         .get();
     return docSnapshot.data()!;
   }
+
+  static Future<UserModel> signInWithGoogle() async {
+  final GoogleSignInAccount? googleUser =
+      await GoogleSignIn().signIn();
+
+  if (googleUser == null) {
+    throw FirebaseAuthException(
+      code: 'aborted',
+      message: 'Google sign in aborted',
+    );
+  }
+
+  final GoogleSignInAuthentication googleAuth =
+      await googleUser.authentication;
+
+  final AuthCredential credential =
+      GoogleAuthProvider.credential(
+    accessToken: googleAuth.accessToken,
+    idToken: googleAuth.idToken,
+  );
+
+  final UserCredential userCredential =
+      await FirebaseAuth.instance
+          .signInWithCredential(credential);
+
+  final String uid = userCredential.user!.uid;
+
+  final usersCollection = getUsersCollection();
+  final docSnapshot = await usersCollection.doc(uid).get();
+
+  if (!docSnapshot.exists) {
+    final user = UserModel(
+      id: uid,
+      name: userCredential.user!.displayName ?? '',
+      email: userCredential.user!.email ?? '',
+      favoriteEventsIds: [],
+    );
+
+    await usersCollection.doc(uid).set(user);
+    return user;
+  }
+
+  return docSnapshot.data()!;
+}
 
   static Future<void> logout() => FirebaseAuth.instance.signOut();
 

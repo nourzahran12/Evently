@@ -104,7 +104,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 SizedBox(height: screenHeight * 0.04),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: signInWithGoogle,
                   child: Row(
                     mainAxisAlignment: .center,
                     children: [
@@ -154,5 +154,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
             UiUtils.showErrorMessage(errorMessage);
           });
     }
+  }
+
+  void signInWithGoogle() {
+    FirebaseService.signInWithGoogle()
+        .then((user) {
+          Provider.of<UserProvider>(
+            context,
+            listen: false,
+          ).updateCurrentUser(user);
+
+          Navigator.of(context).pushReplacementNamed(HomeScreen.routName);
+        })
+        .catchError((error) {
+          String? errorMessage;
+          if (error is FirebaseAuthException) {
+            errorMessage = error.message;
+          }
+          UiUtils.showErrorMessage(errorMessage);
+        });
   }
 }
