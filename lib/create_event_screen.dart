@@ -4,6 +4,7 @@ import 'package:evently/Widgets/default_text_form_field.dart';
 import 'package:evently/Widgets/ui_utils.dart';
 import 'package:evently/app_theme.dart';
 import 'package:evently/firebase_service.dart';
+import 'package:evently/l10n/app_localizations.dart';
 import 'package:evently/models/category_model.dart';
 import 'package:evently/models/event_model.dart';
 import 'package:evently/providers/events_provider.dart';
@@ -57,10 +58,15 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
     SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
+    AppLocalizations appLocalizations = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
         leading: ActionButton(iconName: 'arrow_left'),
-        title: Text('Add event'),
+        title: Text(
+          widget.event == null
+              ? appLocalizations.addEvent
+              : appLocalizations.updateEvent,
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -115,27 +121,30 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                 child: Column(
                   crossAxisAlignment: .start,
                   children: [
-                    Text('Title', style: textTheme.titleMedium),
+                    Text(appLocalizations.title, style: textTheme.titleMedium),
                     SizedBox(height: 8),
                     DefaultTextFormField(
                       hintText: 'Event Title',
                       controller: titleController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Title can not be empty';
+                          return appLocalizations.emptyTitle;
                         }
                         return null;
                       },
                     ),
                     SizedBox(height: 16),
-                    Text('Description', style: textTheme.titleMedium),
+                    Text(
+                      appLocalizations.description,
+                      style: textTheme.titleMedium,
+                    ),
                     SizedBox(height: 8),
                     DefaultTextFormField(
                       hintText: 'Event Description',
                       controller: descriptionController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Description can not be empty';
+                          return appLocalizations.emptyDescription;
                         }
                         return null;
                       },
@@ -151,7 +160,10 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                           fit: .scaleDown,
                         ),
                         SizedBox(width: 4),
-                        Text('Event date', style: textTheme.titleMedium),
+                        Text(
+                          appLocalizations.eventDate,
+                          style: textTheme.titleMedium,
+                        ),
                         Spacer(),
                         TextButton(
                           onPressed: () async {
@@ -169,7 +181,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                           },
                           child: Text(
                             selectedDate == null
-                                ? 'Choose date'
+                                ? appLocalizations.chooseDate
                                 : dateFormat.format(selectedDate!),
                           ),
                         ),
@@ -184,7 +196,10 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                           fit: .scaleDown,
                         ),
                         SizedBox(width: 4),
-                        Text('Event time', style: textTheme.titleMedium),
+                        Text(
+                          appLocalizations.eventTime,
+                          style: textTheme.titleMedium,
+                        ),
                         Spacer(),
                         TextButton(
                           onPressed: () async {
@@ -198,7 +213,8 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                             }
                           },
                           child: Text(
-                            selectedTime?.format(context) ?? 'Select time',
+                            selectedTime?.format(context) ??
+                                appLocalizations.selectTime,
                           ),
                         ),
                       ],
@@ -206,8 +222,8 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                     SizedBox(height: 16),
                     DefaultElevatedButton(
                       label: widget.event == null
-                          ? 'Add event'
-                          : 'Update event',
+                          ? appLocalizations.addEvent
+                          : appLocalizations.updateEvent,
                       onPressed: widget.event == null
                           ? createEvent
                           : updateEvent,
@@ -248,7 +264,9 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
             ).getEvents();
 
             Navigator.of(context).pop();
-            UiUtils.showSuccessMessage('Event created successfully');
+            UiUtils.showSuccessMessage(
+              AppLocalizations.of(context)!.eventCreatedSuccess,
+            );
           })
           .catchError((_) {
             UiUtils.showErrorMessage('Failed to create event');
@@ -287,7 +305,9 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
             ).getEvents();
             Navigator.pop(context);
             Navigator.pop(context);
-            UiUtils.showSuccessMessage('Event updated');
+            UiUtils.showSuccessMessage(
+              AppLocalizations.of(context)!.eventUpdatedSuccess,
+            );
           });
     }
   }

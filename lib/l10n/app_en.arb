@@ -1,4 +1,53 @@
 {
-    "register":"Register",
-    "login": "Login"
+  "@@locale": "en",
+
+  "loginTitle": "Login to your account",
+  "registerTitle": "Create your account",
+
+  "enterEmail": "Enter your email",
+  "enterPassword": "Enter your password",
+  "enterName": "Enter your name",
+
+  "login": "Login",
+  "register": "Register",
+  "loginWithGoogle": "Login with Google",
+  "registerWithGoogle": "Sign up with Google",
+
+  "alreadyHaveAccount": "Already have an account?",
+  "dontHaveAccount": "Don’t have an account ?",
+
+  "home": "Home",
+  "favorite": "Favorite",
+  "profile": "Profile",
+
+  "welcomeBack": "Welcome Back ✨",
+  "all": "All",
+
+  "searchEvent": "Search for event",
+
+  "addEvent": "Add event",
+  "updateEvent": "Update event",
+  "eventDetails": "Event details",
+
+  "title": "Title",
+  "description": "Description",
+
+  "eventDate": "Event date",
+  "eventTime": "Event time",
+  "chooseDate": "Choose date",
+  "selectTime": "Select time",
+
+  "darkMode": "Dark Mode",
+  "language": "Language",
+  "logout": "Logout",
+
+  "eventCreatedSuccess": "Event created successfully",
+  "eventUpdatedSuccess": "Event updated successfully",
+  "eventDeletedSuccess": "Event deleted successfully",
+
+  "invalidEmail": "Invalid email",
+  "invalidPassword": "Invalid password",
+  "invalidName": "Invalid name",
+  "emptyTitle": "Title can not be empty",
+  "emptyDescription": "Description can not be empty"
 }

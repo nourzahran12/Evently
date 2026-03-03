@@ -7,6 +7,7 @@ import 'package:evently/app_theme.dart';
 import 'package:evently/auth/login_screen.dart';
 import 'package:evently/firebase_service.dart';
 import 'package:evently/home_screen.dart';
+import 'package:evently/l10n/app_localizations.dart';
 import 'package:evently/providers/user_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
     double screenHeight = MediaQuery.sizeOf(context).height;
+    AppLocalizations appLocalizations = AppLocalizations.of(context)!;
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -44,52 +47,58 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: Image.asset('assets/images/logo.png', height: 27),
                 ),
                 SizedBox(height: screenHeight * 0.05),
-                Text('Create your account', style: textTheme.headlineSmall),
+                Text(
+                  appLocalizations.registerTitle,
+                  style: textTheme.headlineSmall,
+                ),
                 SizedBox(height: 24),
                 DefaultTextFormField(
-                  hintText: 'Enter your name',
+                  hintText: appLocalizations.enterName,
                   prefixIconImageName: 'name',
                   controller: nameController,
                   validator: (value) {
                     if (value == null || value.length < 2) {
-                      return 'Invalid name';
+                      return appLocalizations.invalidName;
                     }
                     return null;
                   },
                 ),
                 SizedBox(height: 16),
                 DefaultTextFormField(
-                  hintText: 'Enter your email',
+                  hintText: appLocalizations.enterEmail,
                   prefixIconImageName: 'email',
                   controller: emailController,
                   validator: (value) {
                     if (value == null || value.length < 5) {
-                      return 'Invalid email';
+                      return appLocalizations.invalidEmail;
                     }
                     return null;
                   },
                 ),
                 SizedBox(height: 16),
                 DefaultTextFormField(
-                  hintText: 'Enter your password',
+                  hintText: appLocalizations.enterPassword,
                   prefixIconImageName: 'password',
                   controller: passwordController,
                   validator: (value) {
                     if (value == null || value.length < 8) {
-                      return 'Invalid password';
+                      return appLocalizations.invalidPassword;
                     }
                     return null;
                   },
                   isPassword: true,
                 ),
                 SizedBox(height: screenHeight * 0.06),
-                DefaultElevatedButton(label: 'Register', onPressed: register),
+                DefaultElevatedButton(
+                  label: appLocalizations.register,
+                  onPressed: register,
+                ),
                 SizedBox(height: screenHeight * 0.04),
                 Row(
                   mainAxisAlignment: .center,
                   children: [
                     Text(
-                      'Already have an account?',
+                      appLocalizations.alreadyHaveAccount,
                       style: textTheme.titleSmall,
                     ),
                     TextButton(
@@ -98,7 +107,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           context,
                         ).pushReplacementNamed(LoginScreen.routName);
                       },
-                      child: Text('Login'),
+                      child: Text(appLocalizations.login),
                     ),
                   ],
                 ),
@@ -114,7 +123,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         height: 24,
                       ),
                       SizedBox(width: 16),
-                      Text('Sign up with Google'),
+                      Text(appLocalizations.registerWithGoogle),
                     ],
                   ),
                   style: ElevatedButton.styleFrom(

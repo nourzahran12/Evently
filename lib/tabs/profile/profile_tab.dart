@@ -1,6 +1,7 @@
 import 'package:evently/app_theme.dart';
 import 'package:evently/auth/login_screen.dart';
 import 'package:evently/firebase_service.dart';
+import 'package:evently/l10n/app_localizations.dart';
 import 'package:evently/models/language_model.dart';
 import 'package:evently/models/user_model.dart';
 import 'package:evently/providers/settings_provider.dart';
@@ -15,6 +16,7 @@ class ProfileTab extends StatelessWidget {
     UserModel currentUser = Provider.of<UserProvider>(context).currentUser!;
     SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
     TextTheme textTheme = Theme.of(context).textTheme;
+    AppLocalizations appLocalizations = AppLocalizations.of(context)!;
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16),
       child: Column(
@@ -36,7 +38,7 @@ class ProfileTab extends StatelessWidget {
             onChanged: (isDark) {
               settingsProvider.changeTheme(isDark ? .dark : .light);
             },
-            title: Text('Dark Mode'),
+            title: Text(appLocalizations.darkMode),
             activeTrackColor: Theme.of(context).primaryColor,
             inactiveTrackColor: AppTheme.lightGrey,
             thumbColor: WidgetStatePropertyAll(AppTheme.white),
@@ -44,7 +46,7 @@ class ProfileTab extends StatelessWidget {
           ),
           SizedBox(height: 16),
           ListTile(
-            title: Text('Language'),
+            title: Text(appLocalizations.language),
             trailing: DropdownButton(
               value: settingsProvider.languageCode,
               items: LanguageModel.languages
@@ -68,7 +70,7 @@ class ProfileTab extends StatelessWidget {
           ),
           SizedBox(height: 16),
           ListTile(
-            title: Text('Logout'),
+            title: Text(appLocalizations.logout),
             trailing: SvgPicture.asset('assets/icons/logout.svg'),
             onTap: () => FirebaseService.logout().then((_) {
               Navigator.of(

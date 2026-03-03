@@ -2,6 +2,7 @@ import 'package:evently/Widgets/action_button.dart';
 import 'package:evently/app_theme.dart';
 import 'package:evently/create_event_screen.dart';
 import 'package:evently/firebase_service.dart';
+import 'package:evently/l10n/app_localizations.dart';
 import 'package:evently/models/event_model.dart';
 import 'package:evently/providers/events_provider.dart';
 import 'package:evently/providers/settings_provider.dart';
@@ -17,6 +18,7 @@ class EventDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
+    AppLocalizations appLocalizations = AppLocalizations.of(context)!;
     SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
     final EventModel event =
         ModalRoute.of(context)!.settings.arguments as EventModel;
@@ -31,7 +33,7 @@ class EventDetailsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: ActionButton(iconName: 'arrow_left'),
-        title: Text('Event details'),
+        title: Text(appLocalizations.eventDetails),
         actions: isOwner
             ? [
                 ActionButton(
@@ -140,7 +142,7 @@ class EventDetailsScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 16),
-            Text('Description', style: textTheme.titleMedium),
+            Text(appLocalizations.description, style: textTheme.titleMedium),
             SizedBox(height: 8),
             Expanded(
               flex: 2,

@@ -5,6 +5,7 @@ import 'package:evently/app_theme.dart';
 import 'package:evently/auth/register_screen.dart';
 import 'package:evently/firebase_service.dart';
 import 'package:evently/home_screen.dart';
+import 'package:evently/l10n/app_localizations.dart';
 import 'package:evently/providers/user_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -22,11 +23,12 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
     double screenHeight = MediaQuery.sizeOf(context).height;
+    AppLocalizations appLocalizations = AppLocalizations.of(context)!;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
@@ -42,40 +44,46 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Image.asset('assets/images/logo.png', height: 27),
                 ),
                 SizedBox(height: screenHeight * 0.05),
-                Text('Login to your account', style: textTheme.headlineSmall),
+                Text(
+                  appLocalizations.loginTitle,
+                  style: textTheme.headlineSmall,
+                ),
                 SizedBox(height: 24),
                 DefaultTextFormField(
-                  hintText: 'Enter your email',
+                  hintText: appLocalizations.enterEmail,
                   prefixIconImageName: 'email',
                   controller: emailController,
                   validator: (value) {
                     if (value == null || value.length < 5) {
-                      return 'Invalid email';
+                      return appLocalizations.invalidEmail;
                     }
                     return null;
                   },
                 ),
                 SizedBox(height: 16),
                 DefaultTextFormField(
-                  hintText: 'Enter your password',
+                  hintText: appLocalizations.enterPassword,
                   prefixIconImageName: 'password',
                   controller: passwordController,
                   validator: (value) {
                     if (value == null || value.length < 8) {
-                      return 'Invalid password';
+                      return appLocalizations.invalidPassword;
                     }
                     return null;
                   },
                   isPassword: true,
                 ),
                 SizedBox(height: screenHeight * 0.06),
-                DefaultElevatedButton(label: 'Login', onPressed: login),
+                DefaultElevatedButton(
+                  label: appLocalizations.login,
+                  onPressed: login,
+                ),
                 SizedBox(height: screenHeight * 0.04),
                 Row(
                   mainAxisAlignment: .center,
                   children: [
                     Text(
-                      'Don’t have an account ?',
+                      appLocalizations.dontHaveAccount,
                       style: textTheme.titleSmall,
                     ),
                     TextButton(
@@ -84,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           context,
                         ).pushReplacementNamed(RegisterScreen.routName);
                       },
-                      child: Text('Register'),
+                      child: Text(appLocalizations.register),
                     ),
                   ],
                 ),
@@ -100,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 24,
                       ),
                       SizedBox(width: 16),
-                      Text('Login with Google'),
+                      Text(appLocalizations.loginWithGoogle),
                     ],
                   ),
                   style: ElevatedButton.styleFrom(

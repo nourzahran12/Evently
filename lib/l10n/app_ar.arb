@@ -1,4 +1,53 @@
 {
-    "register":"Register",
-    "login": "Login"
+  "@@locale": "ar",
+
+  "loginTitle": "تسجيل الدخول إلى حسابك",
+  "registerTitle": "إنشاء حساب جديد",
+
+  "enterEmail": "أدخل بريدك الإلكتروني",
+  "enterPassword": "أدخل كلمة المرور",
+  "enterName": "أدخل اسمك",
+
+  "login": "تسجيل الدخول",
+  "register": "إنشاء حساب",
+  "loginWithGoogle": "تسجيل الدخول بجوجل",
+  "registerWithGoogle": "إنشاء حساب بجوجل",
+
+  "alreadyHaveAccount": "لديك حساب بالفعل؟",
+  "dontHaveAccount": "ليس لديك حساب؟",
+
+  "home": "الرئيسية",
+  "favorite": "المفضلة",
+  "profile": "الملف الشخصي",
+
+  "welcomeBack": "مرحبًا بعودتك ✨",
+  "all": "الكل",
+
+  "searchEvent": "ابحث عن فعالية",
+
+  "addEvent": "إضافة فعالية",
+  "updateEvent": "تحديث الفعالية",
+  "eventDetails": "تفاصيل الفعالية",
+
+  "title": "العنوان",
+  "description": "الوصف",
+
+  "eventDate": "تاريخ الفعالية",
+  "eventTime": "وقت الفعالية",
+  "chooseDate": "اختر التاريخ",
+  "selectTime": "اختر الوقت",
+
+  "darkMode": "الوضع الداكن",
+  "language": "اللغة",
+  "logout": "تسجيل الخروج",
+
+  "eventCreatedSuccess": "تم إنشاء الفعالية بنجاح",
+  "eventUpdatedSuccess": "تم تحديث الفعالية بنجاح",
+  "eventDeletedSuccess": "تم حذف الفعالية بنجاح",
+
+  "invalidEmail": "بريد إلكتروني غير صالح",
+  "invalidPassword": "كلمة مرور غير صالحة",
+  "invalidName": "اسم غير صالح",
+  "emptyTitle": "لا يمكن ترك العنوان فارغًا",
+  "emptyDescription": "لا يمكن ترك الوصف فارغًا"
 }

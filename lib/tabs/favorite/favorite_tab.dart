@@ -1,5 +1,6 @@
 import 'package:evently/Widgets/default_text_form_field.dart';
 import 'package:evently/Widgets/event_item.dart';
+import 'package:evently/l10n/app_localizations.dart';
 import 'package:evently/providers/events_provider.dart';
 import 'package:evently/providers/user_provider.dart';
 import 'package:flutter/material.dart';
@@ -30,13 +31,14 @@ class _FavoriteTabState extends State<FavoriteTab> {
   @override
   Widget build(BuildContext context) {
     eventsProvider = Provider.of<EventsProvider>(context);
+    AppLocalizations appLocalizations = AppLocalizations.of(context)!;
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         children: [
           DefaultTextFormField(
-            hintText: 'Search for event',
+            hintText: appLocalizations.searchEvent,
             suffixIconImageName: 'search',
             onChanged: (query) {},
           ),
