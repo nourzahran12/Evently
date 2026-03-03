@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
-class ArrowBack extends StatelessWidget {
+class ActionButton extends StatelessWidget {
+  String iconName;
   VoidCallback? onPressed;
-  ArrowBack({this.onPressed});
+  ActionButton({required this.iconName, this.onPressed});
   @override
   Widget build(BuildContext context) {
     SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
@@ -24,11 +25,11 @@ class ArrowBack extends StatelessWidget {
           border: Border.all(
             color: settingsProvider.isDark
                 ? AppTheme.borderDark
-                : Colors.transparent,
+                : AppTheme.offWhite,
           ),
         ),
         child: SvgPicture.asset(
-          'assets/icons/arrow_left.svg',
+          'assets/icons/$iconName.svg',
           height: 24,
           width: 24,
           fit: .scaleDown,

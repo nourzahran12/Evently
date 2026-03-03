@@ -1,21 +1,25 @@
-import 'package:evently/Widgets/arrow_back.dart';
+import 'package:evently/Widgets/action_button.dart';
 import 'package:evently/Widgets/default_elevated_button.dart';
 import 'package:evently/Widgets/default_text_form_field.dart';
 import 'package:evently/Widgets/ui_utils.dart';
+import 'package:evently/app_theme.dart';
 import 'package:evently/firebase_service.dart';
 import 'package:evently/models/category_model.dart';
 import 'package:evently/models/event_model.dart';
+import 'package:evently/providers/events_provider.dart';
 import 'package:evently/providers/settings_provider.dart';
 import 'package:evently/tabs/home/tab_itme.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class CreateEventScreen extends StatefulWidget {
   static const String routName = '/CreateEventScreen';
+
+  final EventModel? event;
+  CreateEventScreen({this.event});
 
   @override
   State<CreateEventScreen> createState() => _CreateEventScreenState();
@@ -32,11 +36,32 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
   DateFormat dateFormat = DateFormat('d/M/yyyy');
 
   @override
+  void initState() {
+    super.initState();
+
+    if (widget.event != null) {
+      final event = widget.event!;
+      titleController.text = event.title;
+      descriptionController.text = event.description;
+      selectedCategory = event.category;
+      selectedDate = event.dateTime;
+      selectedTime = TimeOfDay(
+        hour: event.dateTime.hour,
+        minute: event.dateTime.minute,
+      );
+      currentIndex = CategoryModel.categorise.indexOf(event.category);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
     SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
     return Scaffold(
-      appBar: AppBar(leading: ArrowBack(), title: Text('Add event')),
+      appBar: AppBar(
+        leading: ActionButton(iconName: 'arrow_left'),
+        title: Text('Add event'),
+      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: .start,
@@ -44,7 +69,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadiusGeometry.circular(16),
                 child: Image.asset(
                   'assets/images/${settingsProvider.isDark ? selectedCategory.imageName + '_dark' : selectedCategory.imageName}.png',
                   height: MediaQuery.sizeOf(context).height * 0.23,
@@ -180,8 +205,12 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                     ),
                     SizedBox(height: 16),
                     DefaultElevatedButton(
-                      label: 'Add event',
-                      onPressed: createEvent,
+                      label: widget.event == null
+                          ? 'Add event'
+                          : 'Update event',
+                      onPressed: widget.event == null
+                          ? createEvent
+                          : updateEvent,
                     ),
                   ],
                 ),
@@ -209,14 +238,56 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
         title: titleController.text,
         description: descriptionController.text,
         dateTime: dateTime,
+        creatorId: FirebaseAuth.instance.currentUser!.uid,
       );
       FirebaseService.createEvent(event)
-          .then((_) {
+          .then((_) async {
+            await Provider.of<EventsProvider>(
+              context,
+              listen: false,
+            ).getEvents();
+
             Navigator.of(context).pop();
             UiUtils.showSuccessMessage('Event created successfully');
           })
           .catchError((_) {
             UiUtils.showErrorMessage('Failed to create event');
+          });
+    }
+  }
+
+  void updateEvent() {
+    if (formkey.currentState!.validate() &&
+        selectedDate != null &&
+        selectedTime != null) {
+      DateTime dateTime = DateTime(
+        selectedDate!.year,
+        selectedDate!.month,
+        selectedDate!.day,
+        selectedTime!.hour,
+        selectedTime!.minute,
+      );
+
+      EventModel updatedEvent = EventModel(
+        id: widget.event!.id,
+        category: selectedCategory,
+        title: titleController.text,
+        description: descriptionController.text,
+        dateTime: dateTime,
+        creatorId: widget.event!.creatorId,
+      );
+
+      FirebaseService.getEventsCollection()
+          .doc(updatedEvent.id)
+          .set(updatedEvent)
+          .then((_) async {
+            await Provider.of<EventsProvider>(
+              context,
+              listen: false,
+            ).getEvents();
+            Navigator.pop(context);
+            Navigator.pop(context);
+            UiUtils.showSuccessMessage('Event updated');
           });
     }
   }

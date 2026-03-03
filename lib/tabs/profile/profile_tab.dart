@@ -59,7 +59,9 @@ class ProfileTab extends StatelessWidget {
                 if (languageCode == null) return;
                 settingsProvider.changeLanguage(languageCode);
               },
-              dropdownColor: AppTheme.primaryDark,
+              dropdownColor: settingsProvider.isDark
+                  ? AppTheme.primaryDark
+                  : AppTheme.white,
               borderRadius: BorderRadius.circular(16),
               underline: SizedBox(),
             ),

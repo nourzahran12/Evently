@@ -1,4 +1,4 @@
-import 'package:evently/Widgets/arrow_back.dart';
+import 'package:evently/Widgets/action_button.dart';
 import 'package:evently/Widgets/custom_indicator.dart';
 import 'package:evently/Widgets/default_elevated_button.dart';
 import 'package:evently/Widgets/onboarding_button.dart';
@@ -46,7 +46,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 children: [
                   index == 0
                       ? SizedBox(width: 50, height: 50)
-                      : ArrowBack(
+                      : ActionButton(
+                          iconName: 'arrow_left',
                           onPressed: () {
                             index--;
                             setState(() {});

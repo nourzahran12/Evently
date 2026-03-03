@@ -7,6 +7,7 @@ class EventModel {
   String title;
   String description;
   DateTime dateTime;
+  String creatorId;
 
   EventModel({
     this.id = '',
@@ -14,6 +15,7 @@ class EventModel {
     required this.title,
     required this.description,
     required this.dateTime,
+    required this.creatorId,
   });
 
   EventModel.fromJson(Map<String, dynamic> json)
@@ -25,6 +27,7 @@ class EventModel {
         title: json['title'],
         description: json['description'],
         dateTime: (json['timestamp'] as Timestamp).toDate(),
+        creatorId: json['creatorId'],
       );
 
   Map<String, dynamic> toJson() => {
@@ -33,5 +36,6 @@ class EventModel {
     'title': title,
     'description': description,
     'timestamp': Timestamp.fromDate(dateTime),
+    'creatorId': creatorId,
   };
 }

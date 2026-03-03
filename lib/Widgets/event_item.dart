@@ -1,4 +1,5 @@
 import 'package:evently/app_theme.dart';
+import 'package:evently/event_details_screen.dart';
 import 'package:evently/models/event_model.dart';
 import 'package:evently/providers/events_provider.dart';
 import 'package:evently/providers/settings_provider.dart';
@@ -20,13 +21,23 @@ class EventItem extends StatelessWidget {
     Color primaryColor = Theme.of(context).primaryColor;
     return Stack(
       children: [
-        ClipRRect(
-          borderRadius: BorderRadiusGeometry.circular(16),
-          child: Image.asset(
-            'assets/images/${settingsProvider.isDark ? event.category.imageName + '_dark' : event.category.imageName}.png',
-            height: screenSize.height * 0.23,
-            width: double.infinity,
-            fit: .fill,
+        InkWell(
+          onTap: () {
+            Navigator.pushNamed(
+              context,
+              EventDetailsScreen.routeName,
+              arguments: event,
+            );
+          },
+
+          child: ClipRRect(
+            borderRadius: BorderRadiusGeometry.circular(16),
+            child: Image.asset(
+              'assets/images/${settingsProvider.isDark ? event.category.imageName + '_dark' : event.category.imageName}.png',
+              height: screenSize.height * 0.23,
+              width: double.infinity,
+              fit: .fill,
+            ),
           ),
         ),
         Container(
