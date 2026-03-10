@@ -69,7 +69,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         ),
                 ],
               ),
-              SizedBox(height: 24),
               Container(
                 height: heightSize * 0.44,
                 child: PageView.builder(
@@ -84,7 +83,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   },
                 ),
               ),
-              SizedBox(height: 8),
               Row(
                 mainAxisAlignment: .center,
                 children: [
@@ -93,9 +91,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   CustomIndicator(active: index == 2),
                 ],
               ),
-              SizedBox(height: 16),
-              Text(title[index], style: textTheme.titleLarge),
               SizedBox(height: 8),
+              Text(title[index], style: textTheme.titleLarge),
+              SizedBox(height: 4),
               Text(
                 description[index],
                 style: textTheme.titleMedium!.copyWith(
